@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { BANK_NAME, LOGO_PATH } from "@/config/constants";
 
 const navItems = [
     {
@@ -63,10 +64,10 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex shrink-0 items-center">
                         <Image
-                            src="/logo.png"
+                            src={LOGO_PATH}
                             width={170}
                             height={70}
-                            alt="Quickflow Finance Logo"
+                            alt={`${BANK_NAME} Logo`}
                             className="h-auto w-[130px] sm:w-[150px] lg:w-[170px]"
                             priority
                         />
