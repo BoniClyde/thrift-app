@@ -41,54 +41,53 @@ export default function FAQs() {
         setIsMounted(true);
     }, []);
 
+    const toggleFAQ = (index: number) => {
+        if (!isMounted) return;
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
     return (
-        <div id="faqs-section" className="our-faqs bg-white overflow-hidden py-[100px]">
+        <div id="faqs-section" className="our-faqs bg-section">
             <div className="container">
-                <div className="row section-row align-items-center mb-[80px] flex flex-wrap -mx-[15px]">
-                    <div className="col-lg-7 w-full lg:w-7/12 px-[15px]">
-                        <div className="section-title mb-0">
-                            <h3 className="wow fadeInUp text-[#114a43] text-[15px] font-medium capitalize inline-block pl-[24px] mb-[20px] relative">
+                <div className="row section-row align-items-center">
+                    <div className="col-lg-7">
+                        <div className="section-title">
+                            <h3 className="wow fadeInUp" data-wow-delay="0s">
                                 frequently asked questions
                             </h3>
-                            <h2 className="text-[46px] leading-[1.2] font-semibold text-primary">
+                            <h2 className="text-anime-style-3" data-cursor="-opaque">
                                 Answers to your common questions
                             </h2>
                         </div>
                     </div>
-                    <div className="col-lg-5 w-full lg:w-5/12 px-[15px] mt-6 lg:mt-0 text-right">
-                        <div className="section-btn">
+                    <div className="col-lg-5">
+                        <div className="section-btn wow fadeInUp" data-wow-delay="0.25s">
                             <Link href="#" className="btn-default">contact now</Link>
                         </div>
                     </div>
                 </div>
 
-                <div className="our-faqs-box w-full">
-                    {faqs.map((faq, idx) => (
-                        <div
-                            key={idx}
-                            className="faqs-item border-b border-gray-200 last:border-b-0"
-                        >
-                            <button
-                                onClick={() => isMounted && setActiveIndex(activeIndex === idx ? null : idx)}
-                                className="w-full py-[20px] px-0 flex items-center justify-between hover:bg-gray-50 transition-colors"
-                            >
-                                <h3 className="text-primary font-semibold text-[16px] text-left">
-                                    {faq.question}
-                                </h3>
-                                <span className={`flex-shrink-0 ml-[20px] text-accent font-bold text-[20px] transition-transform duration-300 ${isMounted && activeIndex === idx ? 'rotate-180' : ''
-                                    }`}>
-                                    +
-                                </span>
-                            </button>
-                            {isMounted && activeIndex === idx && (
-                                <div className="pb-[20px] px-0">
-                                    <p className="text-text-color text-[15px] leading-[1.8] m-0">
-                                        {faq.answer}
-                                    </p>
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="our-faqs-box">
+                            {faqs.map((faq, idx) => (
+                                <div
+                                    key={idx}
+                                    className={`faqs-item wow fadeInUp ${isMounted && activeIndex === idx ? 'active' : ''}`}
+                                    data-wow-delay={`${idx * 0.1}s`}
+                                >
+                                    <div className="faqs-item-content">
+                                        <h3 onClick={() => toggleFAQ(idx)}>
+                                            {faq.question}
+                                        </h3>
+                                        <div className="faqs-item-body">
+                                            <p>{faq.answer}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </div>

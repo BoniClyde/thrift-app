@@ -12,6 +12,10 @@ if (typeof window !== "undefined") {
 
 const wisdomItems = [
     {
+        type: "image",
+        src: "/temp/custom/assets/images/company-wisdom-img-1.jpg",
+    },
+    {
         type: "counter",
         title: "The number of publicly traded companies",
         value: 12,
@@ -19,17 +23,13 @@ const wisdomItems = [
     },
     {
         type: "image",
-        src: "/temp/custom/assets/images/company-wisdom-img-1.jpg",
+        src: "/temp/custom/assets/images/company-wisdom-img-2.jpg",
     },
     {
         type: "counter",
         title: "The percentage of financial advisors",
         value: 80,
         suffix: "%",
-    },
-    {
-        type: "image",
-        src: "/temp/custom/assets/images/company-wisdom-img-2.jpg",
     },
     {
         type: "counter",
@@ -92,12 +92,12 @@ export default function CompanyWisdom() {
     useTextReveal();
 
     return (
-        <div ref={wisdomRef} className="company-wisdom bg-white">
+        <div ref={wisdomRef} className="company-wisdom">
             <div className="container">
                 <div className="row section-row align-items-center mb-[80px] flex flex-wrap -mx-[15px]">
                     <div className="col-lg-7 w-full lg:w-7/12 px-[15px]">
                         <div className="section-title mb-0">
-                            <h3 className="wow fadeInUp text-[#114a43] text-[15px] font-medium capitalize inline-block pl-[24px] mb-[20px] relative">
+                            <h3 className="wow fadeInUp text-[#114a43] text-[15px] font-medium capitalize inline-block pl-[24px] mb-[20px] relative" data-wow-delay="0s">
                                 financial wisdom
                             </h3>
                             <h2 className="text-anime-style-3 text-[46px] leading-[1.2] font-semibold text-primary" data-cursor="-opaque">
@@ -114,32 +114,33 @@ export default function CompanyWisdom() {
                     </div>
                 </div>
 
-                <div className="company-wisdom-box">
-                    {wisdomItems.map((item, idx) => (
-                        item.type === "image" ? (
-                            <div key={idx} className="company-wisdom-image wow fadeInUp">
-                                <figure>
-                                    <Image
-                                        src={item.src!}
-                                        alt=""
-                                        width={300}
-                                        height={300}
-                                        style={{ width: "100%", height: "auto" }}
-                                        className="object-cover"
-                                    />
-                                </figure>
-                            </div>
-                        ) : (
-                            <div key={idx} className="company-wisdom-item wow fadeInUp">
-                                <div className="company-counter-title">
-                                    <h3>{item.title}</h3>
+                <div className="row">
+                    <div className="company-wisdom-box">
+                        {wisdomItems.map((item, idx) => (
+                            item.type === "image" ? (
+                                <div key={idx} className="company-wisdom-image wow fadeInUp" data-wow-delay={`${idx * 0.1}s`}>
+                                    <figure className="image-anime">
+                                        <Image
+                                            src={item.src!}
+                                            alt=""
+                                            width={300}
+                                            height={297}
+                                            style={{ width: "100%", height: "auto" }}
+                                        />
+                                    </figure>
                                 </div>
-                                <div className="company-wisdom-counter">
-                                    <Counter value={item.value!} suffix={item.suffix!} />
+                            ) : (
+                                <div key={idx} className="company-wisdom-item wow fadeInUp" data-wow-delay={`${idx * 0.1}s`}>
+                                    <div className="company-counter-title">
+                                        <h3>{item.title}</h3>
+                                    </div>
+                                    <div className="company-wisdom-counter">
+                                        <Counter value={item.value!} suffix={item.suffix!} />
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    ))}
+                            )
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

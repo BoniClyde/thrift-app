@@ -880,7 +880,7 @@
 
   /* Our Approach Section Mirror */
   #our-approach-section.our-approach.bg-section {
-    background: var(--dark-color) url('/temp/custom/assets/images/approach-bg-shape.svg');
+    background: var(--primary-color) url('/temp/custom/assets/images/approach-bg-shape.svg');
     background-repeat: no-repeat;
     background-position: top 220px center;
     background-size: 100% auto;
@@ -1019,6 +1019,10 @@
     padding: 100px 0;
   }
 
+  .company-wisdom .section-row {
+    margin-bottom: 80px;
+  }
+
   .company-wisdom-box {
     display: flex;
     flex-wrap: wrap;
@@ -1053,11 +1057,16 @@
     padding: 30px;
   }
 
-  .company-wisdom-box .company-wisdom-item:nth-child(7),
-  .company-wisdom-box .company-wisdom-item:nth-child(2) {
-    background: url('/temp/custom/assets/images/company-wisdom-bg.svg') no-repeat;
-    background-position: center center;
-    background-size: cover;
+  .company-wisdom-box .company-wisdom-item:nth-child(2),
+  .company-wisdom-box .company-wisdom-item:nth-child(7) {
+    background: var(--primary-color);
+  }
+
+  .company-wisdom-box .company-wisdom-item:nth-child(2) .company-counter-title h3,
+  .company-wisdom-box .company-wisdom-item:nth-child(7) .company-counter-title h3,
+  .company-wisdom-box .company-wisdom-item:nth-child(2) .company-wisdom-counter h2,
+  .company-wisdom-box .company-wisdom-item:nth-child(7) .company-wisdom-counter h2 {
+    color: var(--white-color);
   }
 
   .company-counter-title {
@@ -1078,6 +1087,34 @@
     font-size: 56px;
     font-weight: 600;
     margin: 0;
+  }
+
+  /* Mobile responsive for company wisdom */
+  @media (max-width: 767px) {
+    .company-wisdom {
+      padding: 50px 0;
+    }
+
+    .company-wisdom-item,
+    .company-wisdom-image {
+      width: calc(50% - 15px);
+    }
+
+    .company-wisdom-box {
+      gap: 20px;
+    }
+
+    .company-wisdom-box .company-wisdom-item {
+      padding: 15px;
+    }
+
+    .company-counter-title h3 {
+      font-size: 16px;
+    }
+
+    .company-wisdom-counter h2 {
+      font-size: 36px;
+    }
   }
 
   /* CTA Box Section Mirror */
@@ -1160,10 +1197,14 @@
     background: var(--accent-color) url('/temp/custom/assets/images/icon-quesion-mark.svg');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 20px auto;
+    background-size: 24px auto;
+    color: var(--primary-color);
+    border-radius: 50%;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease-in-out;
   }
 
@@ -1194,6 +1235,42 @@
     margin: 0;
     font-size: 15px;
     line-height: 1.6em;
+  }
+
+  /* Mobile responsive for FAQs */
+  @media (max-width: 991px) {
+    .our-faqs.bg-section {
+      padding: 50px 0;
+    }
+
+    .faqs-item-content::before {
+      background-size: 20px auto;
+      width: 40px;
+      height: 40px;
+    }
+
+    .our-faqs-box {
+      gap: 30px 20px;
+    }
+
+    .faqs-item {
+      width: calc(50% - 10px);
+    }
+
+    .faqs-item-content {
+      padding-left: 50px;
+    }
+
+    .faqs-item-content h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .faqs-item {
+      width: 100%;
+    }
   }
 }
 
