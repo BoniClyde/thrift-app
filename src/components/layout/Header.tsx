@@ -7,7 +7,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 
 const navItems = [
     {
-        label: "Personal Banking",
+        label: "Personal",
         links: [
             { label: "Savings Accounts", href: "/savings" },
             { label: "Checking Accounts", href: "/checking" },
@@ -16,7 +16,7 @@ const navItems = [
         ],
     },
     {
-        label: "Business Banking",
+        label: "Business",
         links: [
             { label: "Business Checking", href: "/business-checking" },
             { label: "Business Loans", href: "/business-loans" },
