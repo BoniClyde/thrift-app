@@ -63,10 +63,10 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="flex shrink-0 items-center">
                         <Image
-                            src="/storage/app/public/photos/PJ3sTYB7NBhqwrYWF9ccdVjgYQ31p9WNVhdv87Nw.png"
+                            src="/logo.png"
                             width={170}
                             height={70}
-                            alt="Avor Finance Logo"
+                            alt="Quickflow Finance Logo"
                             className="h-auto w-[130px] sm:w-[150px] lg:w-[170px]"
                             priority
                         />

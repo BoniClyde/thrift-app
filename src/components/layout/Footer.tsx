@@ -18,10 +18,10 @@ export default function Footer() {
                             <div className="footer-logo mb-[25px]">
                                 <Link href="/">
                                     <Image
-                                        src="/storage/app/public/photos/PJ3sTYB7NBhqwrYWF9ccdVjgYQ31p9WNVhdv87Nw.png"
+                                        src="/logo.png"
                                         width={140}
                                         height={50}
-                                        alt="Logo"
+                                        alt="Quickflow Finance Logo"
                                         style={{ width: "auto", height: "auto" }}
                                     />
                                 </Link>
