@@ -52,7 +52,7 @@ export default function OurApproach() {
                             </div>
                             <div className="approach-body">
                                 <div className="approach-tags">
-                                    <Link href="#">focus</Link>
+                                    <Link href="#" className="tag-btn">focus</Link>
                                 </div>
                                 <div className="approach-content">
                                     <h3 className="text-primary">Get the real exchange rate</h3>
@@ -88,7 +88,7 @@ export default function OurApproach() {
                                         <h3 className="text-primary">Eroll for Online Banking</h3>
                                     </div>
                                     <div className="approach-tags">
-                                        <Link href="#">100%</Link> Secured
+                                        <Link href="#" className="tag-btn">100%</Link> Secured
                                     </div>
                                 </div>
                                 <div className="approach-btn">

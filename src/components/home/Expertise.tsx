@@ -3,45 +3,51 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { useTextReveal, useStaggerFadeUp, useImageReveal } from "@/lib/animations";
+import { useStaggerFadeUp, useTextReveal, useImageReveal } from "@/lib/animations";
 import { BANK_NAME } from "@/config/constants";
 
-const tabs = [
-    { id: "financial", label: "Financial Planning" },
-    { id: "business", label: "Business Consulting" },
-    { id: "risk", label: "Risk Management" },
-    { id: "investment", label: "Investment Management" },
+interface TabData {
+    id: string;
+    label: string;
+    title: string;
+    desc: string;
+    image: string;
+    list: string[];
+}
+
+interface ExpertiseProps {
+    title?: string;
+    description?: string;
+    subtitle?: string;
+    tabs?: TabData[];
+    ctaText?: string;
+    ctaLink?: string;
+}
+
+const originalTabs = [
+    { id: "financial", label: "Financial Wisdom" },
+    { id: "strategic", label: "Strategic Advice" },
+    { id: "investment", label: "Investment Benefits" },
 ];
 
-const expertiseContent = {
+const originalContent = {
     financial: {
-        title: "Benefits of our financial:",
-        desc: "Empower your financial journey with expert advice, personalized strategies, and solutions designed to help you achieve long-term stability, growth, and peace of mind.",
+        title: "Mastering your finances:",
+        desc: "Unlock the secrets to sustainable wealth and long-term financial security with our expert-led guidance and holistic planning.",
         list: [
-            "expert nvestment management",
-            "Social Security and Pension Optimization",
-            "business financial planning",
-        ],
-        image: "/temp/custom/assets/images/expertise-financial-img.jpg",
-    },
-    business: {
-        title: "Benefits of our business:",
-        desc: "Empower your business journey with expert advice, personalized strategies, and solutions designed to help you achieve long-term stability, growth, and peace of mind.",
-        list: [
-            "Strategic Business Consulting",
-            "Market Analysis & Research",
-            "Operational Excellence",
+            "Financial Literacy Programs",
+            "Debt Management Plans",
+            "Retirement Readiness Tools",
         ],
         image: "/temp/custom/assets/images/why-choose-image-1.jpg",
     },
-    risk: {
-        title: "Benefits of our risk mgmt:",
-        desc: "Protect your assets and future with our comprehensive risk management solutions tailored to your unique needs.",
+    strategic: {
+        title: "Your roadmap to success:",
+        desc: "Navigate complex markets and business challenges with precision using our data-driven strategic advisory services.",
         list: [
-            "Comprehensive Risk Assessment",
-            "Insurance Optimization",
-            "Contingency Planning",
+            "Market Analysis & Insights",
+            "Risk Assessment Frameworks",
+            "Growth Strategy Consulting",
         ],
         image: "/temp/custom/assets/images/why-choose-image-2.jpg",
     },
@@ -57,8 +63,8 @@ const expertiseContent = {
     },
 };
 
-export default function Expertise() {
-    const [activeTab, setActiveTab] = useState<keyof typeof expertiseContent>("financial");
+export default function Expertise({ title, description, subtitle, tabs, ctaText, ctaLink }: ExpertiseProps) {
+    const [activeTab, setActiveTab] = useState<string>("financial");
     const [isMounted, setIsMounted] = useState(false);
     const sectionRef = useStaggerFadeUp(".wow.fadeInUp", 0.2);
     useTextReveal();
@@ -66,44 +72,56 @@ export default function Expertise() {
 
     useEffect(() => {
         setIsMounted(true);
-    }, []);
+        if (tabs && tabs.length > 0) {
+            setActiveTab(tabs[0].id);
+        }
+    }, [tabs]);
+
+    const tabsToUse = tabs || originalTabs;
+    const contentToUse = tabs
+        ? Object.fromEntries(tabs.map(t => [t.id, t]))
+        : originalContent;
+
+    const currentTab = tabs
+        ? (tabs.find(t => t.id === activeTab) || tabs[0])
+        : (originalContent[activeTab as keyof typeof originalContent] || originalContent.financial);
+
+    const defaultCtaText = tabs ? "Contact Now" : "Contact Now";
+    const defaultCtaLink = tabs ? "/contact" : "/contact";
 
     return (
-        <div ref={sectionRef} className="our-expertise bg-section">
+        <div ref={sectionRef} className="our-expertise bg-section py-[100px]">
             <div className="container">
-                <div className="row section-row align-items-center flex flex-wrap -mx-[15px]">
-                    <div className="col-lg-7 w-full lg:w-7/12 px-[15px]">
-                        <div className="section-title">
-                            <h3 className="wow fadeInUp text-[#114a43] text-[15px] font-medium capitalize inline-block pl-[24px] mb-[20px] relative">
-                                our expertise
+                <div className="section-title mb-[80px]">
+                    <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-10">
+                        <div className="w-full lg:w-6/12">
+                            <h3 className="wow fadeInUp text-[15px] font-medium capitalize text-primary flex items-center gap-2 mb-4">
+                                <span className="text-[18px] text-primary">*</span> {subtitle || "Our Expertise"}
                             </h3>
-                            <h2 className="text-anime-style-3 text-[46px] leading-[1.2] font-semibold text-primary" data-cursor="-opaque">
-                                Driving innovation and success in Industry Insights
+                            <h2 className="text-anime-style-3 text-[46px] lg:text-[56px] leading-[1.1] font-bold text-primary" data-cursor="-opaque">
+                                {title || "Driving innovation and success in Industry Insights"}
                             </h2>
                         </div>
-                    </div>
-                    <div className="col-lg-5 w-full lg:w-5/12 px-[15px]">
-                        <div className="section-title-content wow fadeInUp" data-wow-delay="0.25s">
-                            <p className="text-text-color m-0 leading-[1.8em]">
-                                {BANK_NAME} Invent is our enterprise approach to innovation and supports our business strategy as a forward-focused bank.
-                                It's about using emerging technology to engage with our customers and exceeding their rapidly evolving expectations.
+                        <div className="w-full lg:w-5/12 pt-4">
+                            <p className="wow fadeInUp text-text-color text-[18px] m-0 leading-[1.8em]" data-wow-delay="0.25s">
+                                {description || `${BANK_NAME} Invent is our enterprise approach to innovation and supports our business strategy as a forward-focused bank. It's about using emerging technology to engage with our customers and exceeding their rapidly evolving expectations.`}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="row flex flex-wrap -mx-[15px]">
-                    <div className="col-lg-12 w-full px-[15px]">
-                        <div className="our-tab-nav wow fadeInUp" data-wow-delay="0.25s">
-                            <ul className="nav nav-tabs">
-                                {tabs.map((tab) => (
-                                    <li key={tab.id} className="nav-item">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="our-tab-nav wow fadeInUp mb-[60px]" data-wow-delay="0.25s">
+                            <ul className="nav nav-tabs flex flex-wrap justify-between gap-4 border-0 w-full mb-0">
+                                {tabsToUse.map((tab) => (
+                                    <li key={tab.id} className="nav-item flex-1 min-w-[200px] text-center">
                                         <button
-                                            onClick={() => isMounted && setActiveTab(tab.id as any)}
-                                            className={cn(
-                                                "nav-link btn-highlighted",
-                                                isMounted && activeTab === tab.id && "active"
-                                            )}
+                                            onClick={() => isMounted && setActiveTab(tab.id)}
+                                            className={`nav-link w-full text-[16px] font-medium px-[20px] py-[15px] rounded-[100px] transition-all duration-300 ${isMounted && activeTab === tab.id
+                                                    ? "bg-primary text-white"
+                                                    : "bg-transparent text-primary hover:bg-primary/5"
+                                                }`}
                                         >
                                             {tab.label}
                                         </button>
@@ -112,59 +130,59 @@ export default function Expertise() {
                             </ul>
                         </div>
 
-                        <div className="expertise-box">
+                        <div className="expertise-box mt-10">
                             <div className="expertise-item">
-                                <div className="row align-items-center flex flex-wrap -mx-[15px]">
-                                    <div className="col-lg-6 w-full lg:w-1/2 px-[15px]">
-                                        <div className="expertise-content bg-white rounded-[30px] p-[40px] shadow-sm">
+                                <div className="flex flex-col lg:flex-row items-center gap-10">
+                                    <div className="w-full lg:w-5/12">
+                                        <div className="expertise-content">
                                             <div className="expertise-content-header mb-[40px]">
-                                                <h3 className="text-[20px] font-semibold text-primary mb-[20px]">
-                                                    {isMounted && expertiseContent[activeTab].title}
+                                                <h3 className="text-[24px] font-bold text-primary mb-[20px]">
+                                                    {currentTab.title}
                                                 </h3>
                                                 <p className="m-0 text-text-color leading-[1.8em]">
-                                                    {isMounted && expertiseContent[activeTab].desc}
+                                                    {currentTab.desc}
                                                 </p>
                                             </div>
 
                                             <div className="expertise-content-body space-y-[20px] mb-[40px]">
-                                                {isMounted && expertiseContent[activeTab].list.map((item, idx) => (
+                                                {currentTab.list.map((item, idx) => (
                                                     <div key={idx} className="expertise-list-item flex items-center">
-                                                        <div className="icon-box w-[40px] h-[40px] bg-secondary rounded-full flex items-center justify-center mr-[20px]">
+                                                        <div className="icon-box w-[40px] h-[40px] rounded-full flex items-center justify-center mr-[20px]">
                                                             <Image
                                                                 src={`/temp/custom/assets/images/icon-expertise-list-${(idx % 3) + 1}.svg`}
                                                                 alt=""
-                                                                width={24}
-                                                                height={24}
+                                                                width={30}
+                                                                height={30}
                                                                 style={{ width: "auto", height: "auto" }}
                                                             />
                                                         </div>
-                                                        <div className="expertise-list-content">
-                                                            <p className="m-0 text-primary capitalize font-medium">{item}</p>
+                                                        <div className="expertise-list-content flex-1">
+                                                            <p className="m-0 text-primary font-medium">{item}</p>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </div>
 
-                                            <div className="expertise-btn">
-                                                <Link href="/contact" className="btn-default">
-                                                    contact now
+                                            <div className="expertise-btn mt-10">
+                                                <Link href={ctaLink || defaultCtaLink} className="btn-default">
+                                                    {ctaText || defaultCtaText}
                                                 </Link>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="col-lg-6 w-full lg:w-1/2 px-[15px] mt-10 lg:mt-0">
+                                    <div className="w-full lg:w-7/12 mt-10 lg:mt-0">
                                         <div className="expertise-image reveal" ref={imageRevealRef}>
-                                            <figure className="rounded-[30px] overflow-hidden">
+                                            <figure className="rounded-[30px] overflow-hidden m-0 shadow-lg">
                                                 {isMounted && (
                                                     <Image
-                                                        src={expertiseContent[activeTab].image}
+                                                        src={currentTab.image}
                                                         alt={activeTab}
-                                                        width={600}
-                                                        height={450}
+                                                        width={900}
+                                                        height={600}
                                                         priority
                                                         style={{ width: "100%", height: "auto" }}
-                                                        className="object-cover transition-transform duration-700 hover:scale-110"
+                                                        className="object-cover transition-transform duration-700 hover:scale-105"
                                                     />
                                                 )}
                                             </figure>

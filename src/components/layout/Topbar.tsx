@@ -1,6 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Topbar() {
+    const pathname = usePathname();
+    const isHomePage = pathname === "/";
+
+    if (!isHomePage) return null;
+
     return (
         <div className="bg-accent py-[10px] relative z-[2]">
             <div className="container mx-auto px-[15px]">

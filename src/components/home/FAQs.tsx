@@ -8,11 +8,11 @@ import { BANK_NAME } from "@/config/constants";
 const faqs = [
     {
         question: `How do I register for mobile banking at ${BANK_NAME}?`,
-        answer: `If you are enrolled in Online Banking, simply use your user name and password to log in to your accounts through the ${BANK_NAME} Savings app. After logging in, Android® and iPhone® users may also enroll in the ${BANK_NAME} Savings Mobile Deposit service to deposit checks using the mobile app.`,
+        answer: `If you are enrolled in Online Banking, simply use your user name and password to log in to your accounts through the ${BANK_NAME} app. After logging in, Android® and iPhone® users may also enroll in the ${BANK_NAME} Mobile Deposit service to deposit checks using the mobile app.`,
     },
     {
         question: "What is Mobile Deposit?",
-        answer: `Our Mobile Deposit allows you to deposit a check through the ${BANK_NAME} Savings mobile app using your internet-enabled iPhone® or Android™ mobile device, provided your device has a camera. You must be an Online or Mobile banking customer, and enrolled in the ${BANK_NAME} Savings Mobile Deposit service.`,
+        answer: `Our Mobile Deposit allows you to deposit a check through the ${BANK_NAME} mobile app using your internet-enabled iPhone® or Android™ mobile device, provided your device has a camera. You must be an Online or Mobile banking customer, and enrolled in the ${BANK_NAME} Mobile Deposit service.`,
     },
     {
         question: "What is your overdraft policy?",

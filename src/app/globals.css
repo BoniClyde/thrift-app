@@ -99,65 +99,124 @@
   }
 
   /* Buttons */
-  .btn-default {
+  /* Buttons */
+  .btn-default, .btn-highlighted {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-family: var(--accent-font);
     font-size: 16px;
     font-weight: 500;
     line-height: 1.1em;
     text-transform: capitalize;
-    background: var(--accent-color);
-    color: var(--primary-color);
     border-radius: 100px;
-    padding: 16px 55px 16px 25px;
+    padding: 18px 35px;
     border: none;
     transition: all 0.4s ease-in-out;
     overflow: hidden;
     z-index: 1;
+    gap: 12px;
   }
 
-  .btn-default:hover {
+  .btn-default {
+    background: var(--accent-color);
+    color: var(--primary-color);
+  }
+
+  .btn-highlighted {
+    background: var(--dark-color);
     color: var(--white-color);
   }
 
-  .btn-default::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background: url("/temp/custom/assets/images/icon-arrow.svg") no-repeat center center;
-    background-size: 14px auto;
-    transform: translate(-30px, -50%);
+  .btn-default::after, .btn-highlighted::after {
+    content: "\f061";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 14px;
     transition: all 0.4s ease-in-out;
   }
 
-  .btn-default:hover::before {
-    filter: brightness(0) invert(1);
-    transform: translate(-27px, -50%);
-  }
-
-  .btn-default::after {
+  /* Sweep Effect */
+  .btn-default::before, .btn-highlighted::before {
     content: "";
+    display: block;
     position: absolute;
     top: 0;
+    left: auto;
     right: 0;
     bottom: 0;
-    left: auto;
     width: 0;
     height: 100%;
     border-radius: 99px;
-    background: var(--primary-color);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-in-out;
     z-index: -1;
   }
 
-  .btn-default:hover:after {
+  .btn-default::before { background: var(--primary-color); }
+  .btn-highlighted::before { background: var(--accent-color); }
+
+  .btn-default:hover, .btn-highlighted:hover {
+    color: var(--white-color);
+  }
+
+  .btn-highlighted:hover {
+    color: var(--primary-color);
+  }
+
+  .btn-default:hover:before, .btn-highlighted:hover:before {
     width: 100%;
     left: 0;
     right: auto;
+  }
+
+  .btn-default:hover::after, .btn-highlighted:hover::after {
+    transform: translateX(3px);
+  }
+
+  /* Secondary Buttons */
+  .readmore-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .readmore-btn:hover {
+    background-color: var(--dark-color);
+    transform: scale(1.1);
+  }
+
+  .readmore-btn img {
+    max-width: 24px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .readmore-btn:hover img {
+    filter: brightness(0) invert(1);
+    transform: rotate(-45deg);
+  }
+
+  .tag-btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    border-radius: 50px;
+    line-height: 1.2em;
+    color: var(--primary-color);
+    text-transform: capitalize;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .tag-btn:hover {
+    background-color: var(--dark-color);
+    color: var(--white-color);
   }
 
   /* Image Anime Hover Sweep */
@@ -211,53 +270,7 @@
     transform: translateX(50px);
   }
 
-  .btn-highlighted {
-    position: relative;
-    display: inline-block;
-    font-family: var(--accent-font);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.1em;
-    text-align: center;
-    text-transform: capitalize;
-    background: var(--accent-color);
-    color: var(--primary-color);
-    border-radius: 100px;
-    padding: 19px 25px;
-    border: none;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-    z-index: 1;
-  }
 
-  .btn-highlighted:hover {
-    color: var(--white-color) !important;
-  }
-
-  .nav-link.active {
-    color: var(--white-color) !important;
-  }
-
-  .btn-highlighted::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
-    width: 0;
-    height: 100%;
-    border-radius: 99px;
-    background: var(--primary-color);
-    transition: all 0.3s ease-in-out;
-    z-index: -1;
-  }
-
-  .btn-highlighted:hover::after {
-    width: 100%;
-    left: 0;
-    right: auto;
-  }
 
   .btn-login {
     font-family: var(--accent-font);
@@ -362,70 +375,111 @@
     margin-top: -100px;
   }
 
-  .section-title {
-    margin-bottom: 60px;
+  .header-transparent {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
-  .section-title h1 {
-    font-size: 56px;
-    color: var(--white-color);
-    margin: 0;
-  }
-
-  .section-title h3 {
-    display: inline-block;
+  /* Hero Video Styles */
+  .hero-video {
     position: relative;
-    font-family: var(--default-font);
-    font-size: 15px;
-    font-weight: 500;
-    padding-left: 24px;
-    color: var(--accent-color);
-    margin-bottom: 20px;
-    text-transform: capitalize;
+    overflow: hidden;
+    background: url("/temp/custom/assets/images/hero-bg.jpg") no-repeat;
+    background-position: center center;
+    background-size: cover;
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: -150px;
+    padding: 40vh 0 50px;
   }
 
-  .section-title h3::before {
+  .hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-bg-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-bg-video::after {
     content: "";
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
-    transform: translateY(-50%);
-    background: url("/temp/custom/assets/images/icon-sub-heading-accent.svg") no-repeat;
-    background-size: cover;
-    width: 14px;
-    height: 14px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    opacity: 0.4;
   }
 
-  /* Light background section titles with dark color */
-  .bg-white .section-title h3,
-  .our-faqs .section-title h3,
-  .company-wisdom .section-title h3,
-  .our-expertise .section-title h3,
-  .about-us .section-title h3 {
-    color: var(--dark-color);
+  .hero-content {
+    position: relative;
+    margin-right: 20px;
+    z-index: 2;
   }
 
-  .bg-white .section-title h3::before,
-  .our-faqs .section-title h3::before,
-  .company-wisdom .section-title h3::before,
-  .our-expertise .section-title h3::before,
-  .about-us .section-title h3::before {
-    background: url("/temp/custom/assets/images/icon-sub-heading-primary.svg") no-repeat;
-    background-size: cover;
-  }
-
-  .hero-content p {
+  .hero-content .section-title p,
+  .hero-content .section-title h1 {
     color: var(--white-color);
-    margin-top: 30px;
-    margin-bottom: 0;
+  }
+
+  .hero-content .section-title h3 {
+    color: var(--accent-color);
+  }
+
+  .hero-content .section-title h3::before {
+    background: url("/temp/custom/assets/images/icon-sub-heading-accent.svg");
+  }
+
+  .hero-content-form .form-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--accent-color);
+    border-radius: 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content-form .form-group .form-control {
+    width: 60%;
+    padding: 14px 25px;
+    background: transparent;
+    border: none;
+    color: var(--white-color);
+  }
+
+  .hero-content-form .form-group .form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .hero-content-form .form-group .form-control::placeholder {
+    color: var(--white-color);
+  }
+
+  .hero-images {
+    position: relative;
   }
 
   .hero-img figure {
+    display: block;
     border-radius: 500px 500px 0 0;
     overflow: hidden;
   }
 
   .hero-img img {
+    width: 100%;
     aspect-ratio: 1 / 1.54;
     object-fit: cover;
     border-radius: 500px 500px 0 0;
@@ -438,13 +492,20 @@
     border-radius: 15px;
     overflow: hidden;
     animation: paymentmoveobject 3s infinite linear alternate;
-    backdrop-filter: blur(20px);
   }
 
   @keyframes paymentmoveobject {
     50% {
       left: 50px;
     }
+  }
+
+  .payment-method-image img {
+    width: 100%;
+    max-width: 255px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 15px;
   }
 
   .hero-counter-box {
@@ -472,6 +533,53 @@
   .hero-counter-item p {
     color: var(--white-color);
     margin: 0;
+  }
+  .section-title {
+    margin-bottom: 60px;
+  }
+
+  .section-title h3 {
+    display: inline-block;
+    position: relative;
+    font-family: var(--default-font);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2em;
+    text-transform: capitalize;
+    color: var(--accent-color);
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+
+  .section-title h3::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: url("/temp/custom/assets/images/icon-sub-heading-accent.svg") no-repeat;
+    background-position: left center;
+    background-size: cover;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Light background section titles with dark color */
+  .bg-white .section-title h3,
+  .our-faqs .section-title h3,
+  .company-wisdom .section-title h3,
+  .our-expertise .section-title h3,
+  .about-us .section-title h3 {
+    color: var(--dark-color);
+  }
+
+  .bg-white .section-title h3::before,
+  .our-faqs .section-title h3::before,
+  .company-wisdom .section-title h3::before,
+  .our-expertise .section-title h3::before,
+  .about-us .section-title h3::before {
+    background: url("/temp/custom/assets/images/icon-sub-heading-primary.svg") no-repeat;
+    background-size: cover;
   }
 
   /* Topbar */
@@ -642,8 +750,14 @@
     color: var(--white-color);
   }
 
-  .service-box-image img {
-    border-radius: 30px 30px 0 0;
+  .hero-img-arched {
+    border-radius: 500px 500px 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hero-img-arched img {
+    border-radius: 500px 500px 0 0;
   }
 
   /* About Us Section Mirror */
@@ -843,21 +957,6 @@
     height: 50px;
   }
 
-  .readmore-btn {
-    display: inline-block;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .readmore-btn:hover {
-    background-color: var(--dark-color);
-  }
 
   .readmore-btn img {
     max-width: 24px;
@@ -874,9 +973,6 @@
     height: auto !important;
   }
 
-  .readmore-btn:hover img {
-    filter: brightness(0) invert(1);
-  }
 
   /* Our Approach Section Mirror */
   #our-approach-section.our-approach.bg-section {
@@ -917,17 +1013,6 @@
     justify-content: flex-end;
   }
 
-  .approach-tags a {
-    display: inline-block;
-    background-color: var(--accent-color);
-    border-radius: 50px;
-    line-height: 1.2em;
-    color: var(--primary-color);
-    text-transform: capitalize;
-    padding: 8px 20px;
-    font-size: 14px;
-    font-weight: 600;
-  }
 
   .approach-content h3 {
     font-size: 20px;
@@ -1151,16 +1236,6 @@
     margin-bottom: 0;
   }
 
-  /* Specific buttons for CTA */
-  #cta-box-section .cta-box-btn .btn-highlighted.btn-cta-1 {
-    background: var(--accent-color);
-  }
-
-  #cta-box-section .cta-box-btn .btn-highlighted.btn-cta-2 {
-    background: var(--white-color);
-    margin-left: 30px;
-    color: var(--primary-color) !important;
-  }
 
   #cta-box-section .cta-box-btn .btn-highlighted.btn-cta-2:hover {
     background: var(--accent-color);

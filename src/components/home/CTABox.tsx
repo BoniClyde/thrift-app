@@ -33,11 +33,11 @@ export default function CTABox() {
                                 </p>
                             </div>
 
-                            <div className="cta-box-btn flex flex-wrap">
-                                <Link href="#" className="btn-highlighted btn-cta-1">
+                            <div className="cta-box-btn flex flex-wrap gap-4">
+                                <Link href="#" className="btn-default">
                                     get started today
                                 </Link>
-                                <Link href="#" className="btn-highlighted btn-cta-2">
+                                <Link href="#" className="btn-highlighted">
                                     explore our services
                                 </Link>
                             </div>

@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { BANK_NAME, LOGO_PATH } from "@/config/constants";
 
@@ -10,58 +11,160 @@ const navItems = [
     {
         label: "Personal",
         links: [
-            { label: "Savings Accounts", href: "/savings" },
-            { label: "Checking Accounts", href: "/checking" },
+            { label: "Savings", href: "/savings" },
+            { label: "Checking", href: "/checking" },
             { label: "Credit Cards", href: "/cards" },
-            { label: "Personal Loans", href: "/loans" },
+            { label: "Loans", href: "/loans" },
         ],
     },
     {
         label: "Business",
         links: [
-            { label: "Business Checking", href: "/business-checking" },
-            { label: "Business Loans", href: "/business-loans" },
-            { label: "Merchant Services", href: "/merchant-services" },
-            { label: "Payroll Services", href: "/payroll" },
+            { label: "Business 1", href: "#" },
+            { label: "Business 2", href: "#" },
         ],
     },
     {
-        label: "Mortgages & Loans",
+        label: "Insurance",
         links: [
-            { label: "Home Mortgages", href: "/home-mortgages" },
-            { label: "Auto Loans", href: "/auto-loans" },
-            { label: "Debt Consolidation", href: "/debt-consolidation" },
-            { label: "Home Equity Lines", href: "/home-equity" },
+            { label: "Insurance 1", href: "#" },
+            { label: "Insurance 2", href: "#" },
         ],
     },
     {
-        label: "Investments & Insurance",
+        label: "Mortgages",
         links: [
-            { label: "Investment Accounts", href: "/investment-accounts" },
-            { label: "Retirement Planning", href: "/retirement-planning" },
-            { label: "Insurance Products", href: "/insurance" },
-            { label: "Wealth Management", href: "/wealth-management" },
+            { label: "Mortgages 1", href: "#" },
+            { label: "Mortgages 2", href: "#" },
+        ],
+    },
+    {
+        label: "Sefton Savings",
+        links: [
+            { label: "Savings", href: "/savings" },
+            { label: "Checking", href: "/checking" },
+            { label: "Credit Cards", href: "/cards" },
+            { label: "Loans", href: "/loans" },
         ],
     },
 ];
 
 export default function Header() {
+    const pathname = usePathname();
+    const isHomePage = pathname === "/";
+    const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openMobileDropdown, setOpenMobileDropdown] = useState<number | null>(null);
 
-    return (
-        <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0d4f48] text-white">
-            {/* Top strip */}
-            {/* <div className="bg-[#c8d67a] text-[#18352f]">
-                <div className="mx-auto flex max-w-7xl items-center justify-center px-4 py-3 text-center text-sm font-medium sm:px-6 lg:px-8">
-                    <span>World class service from your true international community bank</span>
-                </div>
-            </div> */}
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
-            {/* Main nav */}
+    if (!isHomePage) {
+        // EXACT MATCH HEADER FOR PRODUCT PAGES
+        return (
+            <header
+                className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-500 ${scrolled ? "bg-[#0d4f48] shadow-lg" : "bg-transparent"
+                    }`}
+            >
+                <div className="container-fluid px-0">
+                    <nav className="flex items-center justify-between h-[150px]">
+                        {/* Logo */}
+                        <Link href="/" className="px-14 h-full flex items-center">
+                            <Image
+                                src={LOGO_PATH}
+                                width={160}
+                                height={70}
+                                alt={BANK_NAME}
+                                className="w-[160px] h-auto"
+                            />
+                        </Link>
+
+                        <div className="container flex flex-1 items-center justify-between px-10">
+                            {/* Nav Items */}
+                            <div className="hidden lg:flex items-center gap-8">
+                                {navItems.map((item, idx) => (
+                                    <div key={idx} className="relative group">
+                                        <Link
+                                            href="#"
+                                            className="text-white font-medium hover:text-[#d8e28c] transition flex items-center gap-1 uppercase text-sm tracking-widest"
+                                        >
+                                            {item.label}
+                                            {item.links && <ChevronDown className="w-4 h-4" />}
+                                        </Link>
+                                        {item.links && (
+                                            <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-2">
+                                                {item.links.map((link, lIdx) => (
+                                                    <Link
+                                                        key={lIdx}
+                                                        href={link.href}
+                                                        className="block px-4 py-2 text-sm text-[#114a43] hover:bg-[#fafafa] rounded"
+                                                    >
+                                                        {link.label}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Actions */}
+                            <div className="hidden lg:flex items-center gap-6">
+                                <Link href="/login" className="text-white hover:text-[#d8e28c] font-medium uppercase text-sm tracking-widest">
+                                    Login
+                                </Link>
+                                <Link href="/register" className="btn-default">
+                                    Open An Account
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Mobile Menu Toggle */}
+                        <button className="lg:hidden text-white pr-10" onClick={() => setMobileOpen(!mobileOpen)}>
+                            <Menu size={32} />
+                        </button>
+                    </nav>
+                </div>
+
+                {/* Mobile Menu */}
+                {mobileOpen && (
+                    <div className="lg:hidden bg-[#114a43] absolute top-full left-0 w-full p-5 border-t border-white/10">
+                        <ul className="space-y-4">
+                            {navItems.map((item, idx) => (
+                                <li key={idx}>
+                                    <Link href="#" className="text-white block font-bold uppercase mb-2">
+                                        {item.label}
+                                    </Link>
+                                    <ul className="pl-4 space-y-2">
+                                        {item.links.map((link, lIdx) => (
+                                            <li key={lIdx}>
+                                                <Link href={link.href} className="text-white/80 text-sm block" onClick={() => setMobileOpen(false)}>
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </header>
+        );
+    }
+
+    return (
+        <header
+            className={`sticky top-0 w-full z-[100] transition-all duration-300 ${scrolled ? "bg-[#0b433d] shadow-lg" : "bg-transparent"
+                }`}
+        >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-24 items-center justify-between gap-6">
-                    {/* Logo */}
                     <Link href="/" className="flex shrink-0 items-center">
                         <Image
                             src={LOGO_PATH}
@@ -73,7 +176,6 @@ export default function Header() {
                         />
                     </Link>
 
-                    {/* Desktop Nav */}
                     <nav className="hidden flex-1 justify-center lg:flex">
                         <ul className="flex items-center gap-2 xl:gap-5">
                             {navItems.map((item, index) => (
@@ -105,59 +207,47 @@ export default function Header() {
                         </ul>
                     </nav>
 
-                    {/* Desktop Actions */}
-                    <div className="hidden shrink-0 items-center gap-3 lg:flex">
+                    <div className="hidden shrink-0 items-center gap-6 lg:flex">
                         <Link
                             href="/login"
-                            className="rounded-full px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+                            className="text-[16px] font-semibold text-white transition hover:text-white/80"
                         >
                             Login
                         </Link>
-
                         <Link
                             href="/register"
-                            className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#d7df87] px-6 py-3 text-sm font-semibold text-[#123a35] transition hover:scale-[1.02] hover:bg-[#e1e89a]"
+                            className="btn-default"
                         >
                             Open an Account
                         </Link>
                     </div>
 
-                    {/* Mobile toggle */}
                     <button
                         type="button"
                         onClick={() => setMobileOpen(!mobileOpen)}
                         className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/10 lg:hidden"
-                        aria-label="Toggle menu"
                     >
                         {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile menu */}
             {mobileOpen && (
                 <div className="border-t border-white/10 bg-[#0b433d] lg:hidden">
                     <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
                         <div className="space-y-3">
                             {navItems.map((item, index) => {
                                 const isOpen = openMobileDropdown === index;
-
                                 return (
-                                    <div
-                                        key={index}
-                                        className="overflow-hidden rounded-2xl border border-white/10 bg-white/5"
-                                    >
+                                    <div key={index} className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
                                         <button
                                             type="button"
                                             onClick={() => setOpenMobileDropdown(isOpen ? null : index)}
                                             className="flex w-full items-center justify-between px-4 py-4 text-left text-sm font-semibold text-white"
                                         >
                                             <span>{item.label}</span>
-                                            <ChevronDown
-                                                className={`h-4 w-4 transition ${isOpen ? "rotate-180" : ""}`}
-                                            />
+                                            <ChevronDown className={`h-4 w-4 transition ${isOpen ? "rotate-180" : ""}`} />
                                         </button>
-
                                         {isOpen && (
                                             <div className="border-t border-white/10 px-2 py-2">
                                                 {item.links.map((link, linkIndex) => (
@@ -175,24 +265,6 @@ export default function Header() {
                                     </div>
                                 );
                             })}
-
-                            <div className="mt-4 flex flex-col gap-3 pt-2">
-                                <Link
-                                    href="/login"
-                                    className="inline-flex min-h-[46px] items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                                    onClick={() => setMobileOpen(false)}
-                                >
-                                    Login
-                                </Link>
-
-                                <Link
-                                    href="/register"
-                                    className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#d7df87] px-5 py-3 text-sm font-semibold text-[#123a35] transition hover:bg-[#e1e89a]"
-                                    onClick={() => setMobileOpen(false)}
-                                >
-                                    Open an Account
-                                </Link>
-                            </div>
                         </div>
                     </div>
                 </div>
