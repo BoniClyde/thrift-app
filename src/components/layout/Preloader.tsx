@@ -26,7 +26,7 @@ export default function Preloader() {
                 <div className="loading"></div>
                 <div id="loading-icon">
                     <Image
-                        src="/temp/custom/assets/images/loader.html"
+                        src="/logo.png"
                         alt="Loading"
                         width={60}
                         height={60}
